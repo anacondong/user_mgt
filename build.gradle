@@ -19,11 +19,16 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', 'Greenwich.SR1')
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
     implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.flywaydb:flyway-core'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
@@ -33,4 +38,10 @@ dependencies {
     testCompile "org.mockito:mockito-core:2.+"
     testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }

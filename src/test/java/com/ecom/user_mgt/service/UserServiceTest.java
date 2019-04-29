@@ -1,8 +1,12 @@
 package com.ecom.user_mgt.service;
 
 import com.ecom.user_mgt.excpetion.UserNotAvailable;
+import com.ecom.user_mgt.gateways.OrderClient;
 import com.ecom.user_mgt.model.dao.Users;
+import com.ecom.user_mgt.model.dto.Orders;
+import com.ecom.user_mgt.model.dto.UserResponse;
 import com.ecom.user_mgt.repo.UserRepository;
+import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -27,16 +31,23 @@ public class UserServiceTest {
     @Spy
     private UserRepository userRepository;
 
+    @Spy
+    private OrderClient orderClient;
+
     private Long userId = 1L;
 
     @Test
     public void getUserById() {
         Users user = new Users(userId, "Avi", "U", LocalDateTime.now());
+        Orders orders = new Orders(1L, 1L, 1L, "Ordering Apple", LocalDateTime.now());
         doReturn(Optional.of(user)).when(userRepository).findById(userId);
-        Users userById = userService.getUserById(userId);
+        doReturn(Arrays.asList(orders)).when(orderClient).getOrdersByUserId(userId);
+        UserResponse userById = userService.getUserById(userId);
         assertEquals(userId, userById.getId());
         assertEquals("Avi", userById.getFirstName());
         assertEquals("U", userById.getLastName());
+        assertEquals(1, userById.getOrders().size());
+        assertEquals("Ordering Apple", userById.getOrders().get(0).getOrderDesc());
 
     }
 

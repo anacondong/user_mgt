@@ -18,3 +18,8 @@ spring:
     validate-on-migrate: true
 app:
   name: ecom-user
+
+services:
+  order-mgt:
+    url: http://localhost:8090/
+
