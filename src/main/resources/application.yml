@@ -1,0 +1,20 @@
+server:
+  servlet:
+    context-path: /ecom-user
+  port: 8091
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: ${DB_CONNECTION_STRING:jdbc:mysql://localhost:3306/e_user_mgt}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        ddl-auto: validate
+  flyway:
+    enabled: true
+    validate-on-migrate: true
+app:
+  name: ecom-user
