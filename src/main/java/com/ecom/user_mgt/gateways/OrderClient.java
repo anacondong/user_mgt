@@ -10,7 +10,7 @@ import java.util.List;
 @FeignClient(name = "OrderClient", url = "${services.order-mgt.url}")
 public interface OrderClient {
 
-    @GetMapping("/ecom-od/api/orders/user/{userId}")
+    @GetMapping("/api/orders/user/{userId}")
     List<Orders> getOrdersByUserId(@PathVariable("userId") Long userId);
 
 }
