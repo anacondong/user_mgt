@@ -1,0 +1,24 @@
+version: "3"
+services:
+  user-mysql:
+    image: mysql
+    ports:
+      - "3301:3306"
+    environment:
+      - MYSQL_DATABASE=e_user_mgt
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_ROOT_PASSWORD=password
+  user-service:
+    image: users:latest
+    ports:
+      - "8501:8091"
+    environment:
+      - USER_DB_URL=jdbc:mysql://user-mysql:3306/e_user_mgt
+      - RABBITMQ_HOST=host.docker.internal
+      - USER_DB_USERNAME=root
+      - USER_DB_PASSWORD=password
+      - ORDER_URL=http://order-service:8900/ecom-od
+    depends_on:
+      - user-mysql
+
