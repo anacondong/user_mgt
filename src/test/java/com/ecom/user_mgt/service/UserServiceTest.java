@@ -2,11 +2,10 @@ package com.ecom.user_mgt.service;
 
 import com.ecom.user_mgt.excpetion.UserNotAvailable;
 import com.ecom.user_mgt.gateways.OrderClient;
-import com.ecom.user_mgt.model.dao.Users;
+import com.ecom.user_mgt.model.entity.Users;
 import com.ecom.user_mgt.model.dto.Orders;
 import com.ecom.user_mgt.model.dto.UserResponse;
 import com.ecom.user_mgt.repo.UserRepository;
-import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

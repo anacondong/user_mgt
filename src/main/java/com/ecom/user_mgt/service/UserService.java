@@ -2,11 +2,12 @@ package com.ecom.user_mgt.service;
 
 import com.ecom.user_mgt.excpetion.UserNotAvailable;
 import com.ecom.user_mgt.gateways.OrderClient;
-import com.ecom.user_mgt.model.dao.Users;
+import com.ecom.user_mgt.model.entity.Users;
 import com.ecom.user_mgt.model.dto.Orders;
 import com.ecom.user_mgt.model.dto.UserRequest;
 import com.ecom.user_mgt.model.dto.UserResponse;
 import com.ecom.user_mgt.repo.UserRepository;
+import com.ecom.user_mgt.utils.AppConstants;
 import com.ecom.user_mgt.utils.RestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,19 @@ public class UserService {
     @Autowired
     private OrderClient orderClient;
 
+    @Autowired
+    private ChannelGateway channelGateway;
+
     @Value("${app.name}")
     private String appName;
 
     public List<Users> saveUser(List<UserRequest> userRequest) {
         log.info(String.format("[%s] - Saving Users", appName));
-        return userRepository.saveAll(userRequest.stream()
+        List<Users> users = userRepository.saveAll(userRequest.stream()
                 .map(Users::new)
                 .collect(Collectors.toList()));
+        channelGateway.publishToService(AppConstants.USER_CREATED);
+        return users;
     }
 
     public UserResponse getUserById(Long id) {

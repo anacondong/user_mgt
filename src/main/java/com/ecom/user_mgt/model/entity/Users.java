@@ -1,9 +1,8 @@
-package com.ecom.user_mgt.model.dao;
+package com.ecom.user_mgt.model.entity;
 
 import com.ecom.user_mgt.model.dto.UserRequest;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

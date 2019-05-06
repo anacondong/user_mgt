@@ -5,9 +5,9 @@ server:
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: ${DB_CONNECTION_STRING:jdbc:mysql://localhost:3306/e_user_mgt}
-    username: ${DB_USERNAME:root}
-    password: ${DB_PASSWORD:}
+    url: ${USER_DB_URL:jdbc:mysql://localhost:3306/e_user_mgt}
+    username: ${USER_DB_USERNAME:root}
+    password: ${USER_DB_PASSWORD:}
   jpa:
     show-sql: true
     properties:
@@ -16,10 +16,17 @@ spring:
   flyway:
     enabled: true
     validate-on-migrate: true
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: user
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
 app:
   name: ecom-user
 
 services:
   order-mgt:
-    url: http://localhost:8090/ecom-od
+    url: ${ORDER_URL:http://localhost:8090/ecom-od}
 

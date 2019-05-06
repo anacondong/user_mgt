@@ -1,6 +1,6 @@
 package com.ecom.user_mgt.model.dto;
 
-import com.ecom.user_mgt.model.dao.Users;
+import com.ecom.user_mgt.model.entity.Users;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
