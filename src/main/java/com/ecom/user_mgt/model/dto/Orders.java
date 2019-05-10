@@ -1,6 +1,8 @@
 package com.ecom.user_mgt.model.dto;
 
+import com.ecom.user_mgt.utils.json.LocalDateTimeSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ public class Orders {
 
     private String orderDesc;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime orderDate;
 
 }

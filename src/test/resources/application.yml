@@ -1,12 +1,12 @@
 server:
   servlet:
     context-path: /ecom-user
-  port: 8091
+  port: 7001
 spring:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    url: ${USER_DB_URL:jdbc:mysql://localhost:3306/e_user_mgt}
-    username: ${USER_DB_USERNAME:root}
+    driverClassName: org.h2.Driver
+    url: ${USER_DB_URL:jdbc:h2:mem:e_user_mgt;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE}
+    username: ${USER_DB_USERNAME:sa}
     password: ${USER_DB_PASSWORD:}
   jpa:
     show-sql: true
@@ -20,6 +20,9 @@ spring:
     stream:
       bindings:
         output:
+          destination: user
+          content-type: application/json
+        input:
           destination: user
           content-type: application/json
   rabbitmq:

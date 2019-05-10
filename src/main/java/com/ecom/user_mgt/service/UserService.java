@@ -2,6 +2,7 @@ package com.ecom.user_mgt.service;
 
 import com.ecom.user_mgt.excpetion.UserNotAvailable;
 import com.ecom.user_mgt.gateways.OrderClient;
+import com.ecom.user_mgt.model.dto.UserDetailsRequest;
 import com.ecom.user_mgt.model.entity.Users;
 import com.ecom.user_mgt.model.dto.Orders;
 import com.ecom.user_mgt.model.dto.UserRequest;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +40,10 @@ public class UserService {
         List<Users> users = userRepository.saveAll(userRequest.stream()
                 .map(Users::new)
                 .collect(Collectors.toList()));
-        channelGateway.publishToService(AppConstants.USER_CREATED);
+        channelGateway.publishToService(new HashMap<String, Object>(){{
+            put("type", AppConstants.USER_CREATED);
+            put("userIds", users.stream().map(Users::getId).collect(Collectors.toList()));
+        }});
         return users;
     }
 
@@ -51,8 +56,10 @@ public class UserService {
         return new UserResponse(users, orders);
     }
 
-    public List<Users> getAllUsers() {
+    public List<Users> getAllUsers(UserDetailsRequest userDetailsRequest) {
         log.info(String.format("[%s] Getting all Users", appName));
-        return userRepository.findAll();
+        if(userDetailsRequest.getFullSync())
+            return userRepository.findAll();
+        return userRepository.findAllById(userDetailsRequest.getUserIds());
     }
 }

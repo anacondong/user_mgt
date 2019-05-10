@@ -1,5 +1,6 @@
 package com.ecom.user_mgt.controller;
 
+import com.ecom.user_mgt.model.dto.UserDetailsRequest;
 import com.ecom.user_mgt.model.dto.UserRequest;
 import com.ecom.user_mgt.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,9 @@ public class UserController extends BaseController {
         return ResponseEntity.ok(userService.saveUser(userRequest));
     }
 
-    @GetMapping("/users")
-    public ResponseEntity users() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    @PostMapping("/userDetails")
+    public ResponseEntity userDetails(@RequestBody UserDetailsRequest userDetailsRequest) {
+        return ResponseEntity.ok(userService.getAllUsers(userDetailsRequest));
     }
 
     @GetMapping("/user/{id}")

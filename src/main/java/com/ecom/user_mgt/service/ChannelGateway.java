@@ -6,6 +6,8 @@ import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @Slf4j
 public class ChannelGateway {
@@ -13,7 +15,8 @@ public class ChannelGateway {
     @Autowired
     private Source outputPipe;
 
-    public void publishToService(String msg) {
+    public void publishToService(Map msg) {
+        log.info("Publishing Msg..");
         outputPipe.output().send(MessageBuilder.withPayload(msg).build());
     }
 }

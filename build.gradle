@@ -31,6 +31,7 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.flywaydb:flyway-core'
     implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-stream-rabbit', version: '2.1.2.RELEASE'
+    testCompile('org.springframework.cloud:spring-cloud-stream-test-support')
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
@@ -38,6 +39,8 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     testCompile "org.mockito:mockito-core:2.+"
     testCompile('org.mockito:mockito-junit-jupiter:2.18.3')
+    testCompile "com.github.tomakehurst:wiremock-jre8:2.23.2"
+    testCompile group: 'com.h2database', name: 'h2', version: '1.4.199'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

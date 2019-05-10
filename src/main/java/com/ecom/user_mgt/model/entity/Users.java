@@ -1,7 +1,9 @@
 package com.ecom.user_mgt.model.entity;
 
 import com.ecom.user_mgt.model.dto.UserRequest;
+import com.ecom.user_mgt.utils.json.LocalDateTimeSerializer;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +29,7 @@ public class Users {
 
     private String lastName;
 
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
     private LocalDateTime createdAt;
 
     public Users(UserRequest userRequest) {
